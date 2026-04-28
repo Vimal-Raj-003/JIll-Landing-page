@@ -28,6 +28,12 @@
     // Initialize image carousel
     new Carousel();
 
+    // Initialize vending image carousel
+    new VendingCarousel();
+
+    // Initialize distribution animation in product section
+    new DistributionPlayer('distribution-canvas', 'Background-animation/Distribution', 192);
+
     // Initialize scroll reveal
     const scrollReveal = new ScrollReveal();
     scrollReveal.init();

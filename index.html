@@ -162,26 +162,22 @@
 
         <div class="problem-grid">
           <div class="card" data-reveal data-reveal-delay="0">
-            <img src="assets/problem/billboard.jpg" alt="Highway billboard advertising" class="card-img" loading="lazy">
-            <div class="card-icon">📢</div>
+            <img src="assets/problem/billboard.jpg" alt="Billboard advertisement on highway" class="card-img" loading="lazy">
             <h3 class="card-title">Billboards</h3>
             <p class="card-text">Drivers pass at 60km/h — your message is a blur. Expensive and forgettable.</p>
           </div>
           <div class="card" data-reveal data-reveal-delay="150">
-            <img src="assets/problem/tv-commercial.jpg" alt="TV commercial advertising" class="card-img" loading="lazy">
-            <div class="card-icon">📺</div>
+            <img src="assets/problem/tv-commercial.jpg" alt="TV screens showing commercials" class="card-img" loading="lazy">
             <h3 class="card-title">TV Commercials</h3>
             <p class="card-text">Viewers skip, mute, or switch channels. The 30-second spot is dying.</p>
           </div>
           <div class="card" data-reveal data-reveal-delay="300">
-            <img src="assets/problem/online-ad.jpg" alt="Mobile online advertising" class="card-img" loading="lazy">
-            <div class="card-icon">💻</div>
+            <img src="assets/problem/online-ad.jpg" alt="iPhone showing mobile advertisement" class="card-img" loading="lazy">
             <h3 class="card-title">Online Ads</h3>
             <p class="card-text">Ad blockers and skip buttons kill your reach. Most impressions never land.</p>
           </div>
           <div class="card" data-reveal data-reveal-delay="450">
             <img src="assets/problem/newspaper.jpg" alt="Newspaper print advertising" class="card-img" loading="lazy">
-            <div class="card-icon">📰</div>
             <h3 class="card-title">Newspaper</h3>
             <p class="card-text">Declining readership. Print ads compete with headlines — and lose.</p>
           </div>
@@ -328,9 +324,7 @@
         </div>
 
         <div class="products-video" data-reveal>
-          <video autoplay muted loop playsinline width="800" height="400" style="max-width:100%;border-radius:var(--radius-lg);box-shadow:var(--shadow-deep);">
-            <source src="assets/videos/Realistic_water_bottle_202604282001.mp4" type="video/mp4">
-          </video>
+          <canvas id="distribution-canvas" style="width:100%;max-width:800px;height:auto;aspect-ratio:2/1;border-radius:var(--radius-lg);box-shadow:var(--shadow-deep);display:block;margin:0 auto;"></canvas>
         </div>
       </div>
     </section>
@@ -344,29 +338,37 @@
             <p style="color:rgba(255,255,255,0.8);margin-bottom:var(--space-2xl);">Automated distribution at high-footfall locations. Your brand, available 24/7.</p>
 
             <div class="vending-features">
-              <div class="vending-feature">
+              <div class="vending-feature" data-slide="metro">
                 <div class="vending-feature-icon">🚇</div>
                 <span>Metro stations & transit hubs</span>
               </div>
-              <div class="vending-feature">
+              <div class="vending-feature" data-slide="techpark">
                 <div class="vending-feature-icon">🏢</div>
                 <span>Tech parks & corporate campuses</span>
               </div>
-              <div class="vending-feature">
+              <div class="vending-feature" data-slide="bus">
                 <div class="vending-feature-icon">🏬</div>
                 <span>Shopping malls & retail centers</span>
               </div>
-              <div class="vending-feature">
+              <div class="vending-feature" data-slide="air">
                 <div class="vending-feature-icon">✈️</div>
-                <span>Airports & railway stations</span>
+                <span>Airports & travel terminals</span>
               </div>
-              <div class="vending-feature">
+              <div class="vending-feature" data-slide="train">
+                <div class="vending-feature-icon">🚂</div>
+                <span>Railway stations & bus stands</span>
+              </div>
+              <div class="vending-feature" data-slide="hospital">
                 <div class="vending-feature-icon">🏥</div>
                 <span>Hospitals & educational institutions</span>
               </div>
-              <div class="vending-feature">
+              <div class="vending-feature" data-slide="gym">
                 <div class="vending-feature-icon">🏋️</div>
                 <span>Gyms, parks & street corners</span>
+              </div>
+              <div class="vending-feature" data-slide="education">
+                <div class="vending-feature-icon">🎓</div>
+                <span>Universities & conference venues</span>
               </div>
             </div>
 
@@ -383,9 +385,18 @@
           </div>
 
           <div class="solution-image" data-reveal data-reveal-direction="right" data-reveal-delay="300">
-            <video autoplay muted loop playsinline style="max-height:400px;border-radius:var(--radius-lg);">
-              <source src="assets/videos/Water_bottle_with_202604281802.mp4" type="video/mp4">
-            </video>
+            <div class="vending-carousel" id="vendingCarousel">
+              <div class="vending-carousel-track" id="vendingCarouselTrack">
+                <img src="Background-animation/Slide images/metro.gif" alt="Metro station" data-slide="metro">
+                <img src="Background-animation/Slide images/conference.webp" alt="Tech park and corporate campus" data-slide="techpark">
+                <img src="Background-animation/Slide images/bus.webp" alt="Shopping mall and retail center" data-slide="bus">
+                <img src="Background-animation/Slide images/air.webp" alt="Airport terminal" data-slide="air">
+                <img src="Background-animation/Slide images/train.webp" alt="Railway station" data-slide="train">
+                <img src="Background-animation/Slide images/hospital.webp" alt="Hospital" data-slide="hospital">
+                <img src="Background-animation/Slide images/gym.webp" alt="Gym and fitness center" data-slide="gym">
+                <img src="Background-animation/Slide images/education.webp" alt="University campus" data-slide="education">
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -613,6 +624,8 @@
   <script src="js/navigation.js"></script>
   <script src="js/product-showcase.js"></script>
   <script src="js/carousel.js"></script>
+  <script src="js/vending-carousel.js"></script>
+  <script src="js/distribution-player.js"></script>
   <script src="js/modal.js"></script>
   <script src="js/main.js"></script>
 </body>
