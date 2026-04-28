@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pdftotext \"JillJill-Investor-Pitch-V0.1 \\(1\\).pdf\" -)",
+      "Bash(pdftotext -layout \"c:/Users/jillj/OneDrive/Desktop/JillJill/New folder/Information/Direct-to-Hand_Connection \\(1\\).pdf\" \"c:/Users/jillj/OneDrive/Desktop/JillJill/New folder/Information/Direct-to-Hand_Connection.txt\")",
+      "Bash(pdftotext \"Bottled_Media_The_Unopened_Billboard \\(1\\).pdf\" -)",
+      "Bash(unzip -l \"Jill_Jill_Operational_Bible.pptx\")",
+      "Bash(pdftk \"c:/Users/jillj/OneDrive/Desktop/JillJill/New folder/Information/Direct-to-Hand_Connection \\(1\\).pdf\" dump_data output \"c:/Users/jillj/OneDrive/Desktop/JillJill/New folder/Information/Direct-to-Hand_Connection.txt\")"
+    ]
+  }
+}
