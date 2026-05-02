@@ -282,11 +282,11 @@ Open `css/components.css`. Append this block at the end of the file (after the f
   transition: opacity 600ms ease;
 }
 
-.card-img-stack img.is-active {
+.card-img-stack img.active {
   opacity: 0.9;
 }
 
-.card:hover .card-img-stack img.is-active {
+.card:hover .card-img-stack img.active {
   opacity: 1;
 }
 
@@ -305,7 +305,7 @@ Open `css/components.css`. Append this block at the end of the file (after the f
   transition: opacity 600ms ease;
 }
 
-.card-text-stack p.is-active {
+.card-text-stack p.active {
   opacity: 1;
 }
 
@@ -357,52 +357,52 @@ Open `index.html`. Find the block that currently spans lines 192–213 (the `<di
         <div class="problem-grid">
           <div class="card" data-reveal data-reveal-delay="0">
             <div class="card-img-stack">
-              <img src="assets/problem/billboard-1.jpg" alt="Highway billboard in India" class="is-active" loading="lazy">
+              <img src="assets/problem/billboard-1.jpg" alt="Highway billboard in India" class="active" loading="lazy">
               <img src="assets/problem/billboard-2.jpg" alt="City intersection billboard" loading="lazy">
               <img src="assets/problem/billboard-3.jpg" alt="Backlit night billboard" loading="lazy">
             </div>
             <h3 class="card-title">Billboards</h3>
             <div class="card-text-stack">
-              <p class="is-active">A driver passes at 60 km/h. Your message is a blur.</p>
+              <p class="active">A driver passes at 60 km/h. Your message is a blur.</p>
               <p>Crores spent. Glanced at for 2 seconds.</p>
               <p>The skyline forgets you the moment you leave it.</p>
             </div>
           </div>
           <div class="card" data-reveal data-reveal-delay="150">
             <div class="card-img-stack">
-              <img src="assets/problem/tv-1.jpg" alt="Television showing a commercial" class="is-active" loading="lazy">
+              <img src="assets/problem/tv-1.jpg" alt="Television showing a commercial" class="active" loading="lazy">
               <img src="assets/problem/tv-2.jpg" alt="Wall of televisions in an electronics store" loading="lazy">
               <img src="assets/problem/tv-3.jpg" alt="Person watching TV in dim light" loading="lazy">
             </div>
             <h3 class="card-title">TV Commercials</h3>
             <div class="card-text-stack">
-              <p class="is-active">Viewers mute, skip, or scroll the second your ad plays.</p>
+              <p class="active">Viewers mute, skip, or scroll the second your ad plays.</p>
               <p>30 seconds of airtime. 0 seconds of attention.</p>
               <p>The ₹50-lakh slot competes with a phone in their hand.</p>
             </div>
           </div>
           <div class="card" data-reveal data-reveal-delay="300">
             <div class="card-img-stack">
-              <img src="assets/problem/online-1.jpg" alt="Samsung phone showing a banner ad" class="is-active" loading="lazy">
+              <img src="assets/problem/online-1.jpg" alt="Samsung phone showing a banner ad" class="active" loading="lazy">
               <img src="assets/problem/online-2.jpg" alt="iPhone showing a sponsored Instagram post" loading="lazy">
               <img src="assets/problem/online-3.jpg" alt="Hand scrolling a social-media feed on a phone" loading="lazy">
             </div>
             <h3 class="card-title">Online Ads</h3>
             <div class="card-text-stack">
-              <p class="is-active">Ad blockers and skip buttons quietly delete your reach.</p>
+              <p class="active">Ad blockers and skip buttons quietly delete your reach.</p>
               <p>A scroll is faster than a brand impression.</p>
               <p>Most of your impressions never even loaded.</p>
             </div>
           </div>
           <div class="card" data-reveal data-reveal-delay="450">
             <div class="card-img-stack">
-              <img src="assets/problem/news-1.jpg" alt="English-language Indian newspaper front page" class="is-active" loading="lazy">
+              <img src="assets/problem/news-1.jpg" alt="English-language Indian newspaper front page" class="active" loading="lazy">
               <img src="assets/problem/news-2.jpg" alt="Hindi-language Indian newspaper" loading="lazy">
               <img src="assets/problem/news-3.jpg" alt="Stack of folded newspapers" loading="lazy">
             </div>
             <h3 class="card-title">Newspaper</h3>
             <div class="card-text-stack">
-              <p class="is-active">Print readership in India falls every quarter.</p>
+              <p class="active">Print readership in India falls every quarter.</p>
               <p>Page 5, bottom-right — and gone with tomorrow's paper.</p>
               <p>Headlines win the eye. Ads lose the page.</p>
             </div>
@@ -459,7 +459,7 @@ feat(problem): replace single-image cards with 3-up image+caption stacks
 
 Each of the four Problem cards now has a .card-img-stack of three
 photos and a matching .card-text-stack of three captions. The first
-of each is marked .is-active so the page renders correctly even
+of each is marked .active so the page renders correctly even
 before problem-carousel.js loads.
 
 Co-Authored-By: Claude Opus 4.7 (1M context) <noreply@anthropic.com>
@@ -489,9 +489,9 @@ Create `js/problem-carousel.js` with this exact content:
   function activate(nodes, index) {
     for (var i = 0; i < nodes.length; i++) {
       if (i === index) {
-        nodes[i].classList.add('is-active');
+        nodes[i].classList.add('active');
       } else {
-        nodes[i].classList.remove('is-active');
+        nodes[i].classList.remove('active');
       }
     }
   }
@@ -595,18 +595,18 @@ const { chromium } = require('playwright');
   await page.locator('#problem').scrollIntoViewIfNeeded();
 
   const initial = await page.$$eval('#problem .card-img-stack', stacks =>
-    stacks.map(s => Array.from(s.querySelectorAll('img')).findIndex(i => i.classList.contains('is-active')))
+    stacks.map(s => Array.from(s.querySelectorAll('img')).findIndex(i => i.classList.contains('active')))
   );
 
   // Wait long enough for every card's first stagger tick to fire (4 cards × 575ms + 1 interval = ~4.6s)
   await page.waitForTimeout(4800);
 
   const after = await page.$$eval('#problem .card-img-stack', stacks =>
-    stacks.map(s => Array.from(s.querySelectorAll('img')).findIndex(i => i.classList.contains('is-active')))
+    stacks.map(s => Array.from(s.querySelectorAll('img')).findIndex(i => i.classList.contains('active')))
   );
 
   const captions = await page.$$eval('#problem .card-text-stack', stacks =>
-    stacks.map(s => Array.from(s.querySelectorAll('p')).findIndex(p => p.classList.contains('is-active')))
+    stacks.map(s => Array.from(s.querySelectorAll('p')).findIndex(p => p.classList.contains('active')))
   );
 
   console.log(JSON.stringify({ initial, after, captions, errors }, null, 2));
@@ -1334,7 +1334,7 @@ const { chromium } = require('playwright');
   // Wait through one Problem stagger cycle to confirm rotation works end-to-end
   await page.waitForTimeout(4800);
   const advanced = await page.$$eval('#problem .card-img-stack', stacks =>
-    stacks.map(s => Array.from(s.querySelectorAll('img')).findIndex(i => i.classList.contains('is-active')))
+    stacks.map(s => Array.from(s.querySelectorAll('img')).findIndex(i => i.classList.contains('active')))
   );
   checks.problemAdvanced = advanced;
 
