@@ -31,6 +31,9 @@
     // Initialize vending image carousel
     new VendingCarousel();
 
+    // Initialize Problem-section staggered cross-fade carousel
+    new ProblemCarousel();
+
     // Initialize distribution animation in product section
     new DistributionPlayer('distribution-canvas', 'Background-animation/Distribution', 192);
 
