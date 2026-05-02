@@ -490,8 +490,10 @@ Create `js/problem-carousel.js` with this exact content:
     for (var i = 0; i < nodes.length; i++) {
       if (i === index) {
         nodes[i].classList.add('active');
+        nodes[i].removeAttribute('aria-hidden');
       } else {
         nodes[i].classList.remove('active');
+        nodes[i].setAttribute('aria-hidden', 'true');
       }
     }
   }
