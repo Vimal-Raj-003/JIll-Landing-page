@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 220" role="img" aria-labelledby="jilDiscTitle">
+  <title id="jilDiscTitle">JillJill — wells for India</title>
+  <defs>
+    <radialGradient id="jilDiscGrad" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="#FFD060"/>
+      <stop offset="100%" stop-color="#F4B400"/>
+    </radialGradient>
+  </defs>
+  <circle cx="110" cy="110" r="104" fill="url(#jilDiscGrad)"/>
+  <circle cx="110" cy="110" r="104" fill="none" stroke="#ffffff" stroke-opacity="0.35" stroke-width="3"/>
+  <text x="110" y="135" text-anchor="middle"
+        font-family="'Space Grotesk', system-ui, -apple-system, sans-serif"
+        font-weight="800" font-size="92" fill="#ffffff"
+        letter-spacing="-2">Jil</text>
+</svg>
