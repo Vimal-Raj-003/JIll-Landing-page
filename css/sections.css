@@ -416,29 +416,21 @@
   margin: 0 auto;
 }
 
-.impact-visual {
+.impact-disc {
   margin: var(--space-2xl) auto;
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-warm-amber), var(--color-hope-gold));
+  width: 220px;
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 4rem;
-  box-shadow: 0 0 60px rgba(255, 179, 71, 0.3);
+  filter: drop-shadow(0 0 60px rgba(255, 179, 71, 0.35));
   animation: pulseGlow 3s infinite;
 }
 
-.impact-stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-xl);
-  margin-top: var(--space-3xl);
-}
-
-.impact-stat .stat-number {
-  color: var(--color-hope-gold);
+.impact-disc img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 /* === CTA SECTION === */

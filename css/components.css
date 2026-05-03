@@ -607,3 +607,29 @@
     transition: none;
   }
 }
+
+/* === Phase A — Highlighted "Join Our Mission" CTA === */
+
+.btn-mission {
+  font-size: 1.15em;
+  padding: 1.1em 2.4em;
+  background: linear-gradient(135deg, var(--color-warm-amber), var(--color-hope-gold));
+  color: var(--color-deep-navy);
+  border: none;
+  box-shadow: 0 0 0 0 rgba(244, 180, 0, 0.55);
+  animation: missionPulse 2s ease-in-out infinite alternate;
+}
+
+.btn-mission:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(244, 180, 0, 0.45);
+}
+
+@keyframes missionPulse {
+  from { box-shadow: 0 0 0 0 rgba(244, 180, 0, 0.55); }
+  to   { box-shadow: 0 0 0 14px rgba(244, 180, 0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-mission { animation: none; }
+}
