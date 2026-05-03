@@ -240,8 +240,8 @@
 .carousel-container {
   position: relative;
   width: 100%;
-  max-width: 480px;
-  height: 520px;
+  max-width: 600px;
+  height: 600px;
   overflow: hidden;
   border-radius: var(--radius-xl);
 }
@@ -254,7 +254,7 @@
 
 .carousel-track img {
   width: 100%;
-  max-width: 480px;
+  max-width: 600px;
   height: 100%;
   object-fit: contain;
   flex-shrink: 0;

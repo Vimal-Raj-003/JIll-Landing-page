@@ -8,7 +8,7 @@ class Carousel {
     this.total = this.images.length; // 6 (5 originals + 1 duplicate of first)
     this.currentIndex = 0;
     this.isTransitioning = false;
-    this.interval = 3000; // 3 seconds per slide
+    this.interval = 6000; // 6 seconds per slide (Phase A — bigger, calmer carousel)
 
     this._init();
   }
