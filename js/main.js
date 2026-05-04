@@ -36,6 +36,8 @@
 
     new ContactForm();
 
+    new Chatbot();
+
     // Initialize distribution animation in product section
     new DistributionPlayer('distribution-canvas', 'Background-animation/Distribution', 192);
 
