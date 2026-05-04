@@ -28,11 +28,6 @@
     gap: var(--space-2xl);
   }
 
-  .profile-stats {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-md);
-  }
-
   .stat-number {
     font-size: clamp(1.5rem, 3vw, 2rem);
   }
@@ -67,11 +62,6 @@
 
   .pricing-card.featured:hover {
     transform: translateY(-4px);
-  }
-
-  .impact-stats {
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
   }
 
   .footer-grid {
@@ -135,10 +125,6 @@
 
 @media (max-width: 374px) {
   .products-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .profile-stats {
     grid-template-columns: 1fr;
   }
 

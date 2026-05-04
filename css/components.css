@@ -146,20 +146,6 @@
   filter: drop-shadow(0 8px 16px rgba(0, 212, 255, 0.2));
 }
 
-.product-card .product-name {
-  font-family: var(--font-heading);
-  font-size: var(--fs-h3);
-  font-weight: var(--fw-semibold);
-  color: var(--text-primary-dark);
-  margin-bottom: var(--space-xs);
-}
-
-.product-card .product-size {
-  color: var(--text-secondary-dark);
-  font-size: var(--fs-small);
-  margin-bottom: var(--space-lg);
-}
-
 /* Pricing cards */
 .pricing-card {
   background: var(--glass-bg);
