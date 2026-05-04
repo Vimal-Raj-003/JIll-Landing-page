@@ -619,3 +619,14 @@
 @media (prefers-reduced-motion: reduce) {
   .btn-mission { animation: none; }
 }
+
+/* === Phase B — Inline Lucide icons === */
+
+.solution-point-icon svg,
+.vending-feature-icon svg {
+  width: 100%;
+  height: 100%;
+  max-width: 48px;
+  max-height: 48px;
+  display: block;
+}
