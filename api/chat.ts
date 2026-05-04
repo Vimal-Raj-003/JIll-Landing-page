@@ -35,12 +35,8 @@ YOUR JOB:
 const DAILY_TOKEN_BUDGET = 1_000_000; // ~$5/day at Haiku 4.5 prices
 const RATE_LIMIT_PER_5MIN = 20;
 
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
-  }
-
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+export async function POST(request: Request): Promise<Response> {
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   const cache = getCache();
 
   // 1. Per-IP rate limit
@@ -68,7 +64,7 @@ export default async function handler(req: Request): Promise<Response> {
   // 3. Validate body
   let messages: Array<{ role: 'user' | 'assistant'; content: string }>;
   try {
-    const body = await req.json();
+    const body = await request.json();
     if (!Array.isArray(body.messages) || body.messages.length === 0) throw new Error('bad shape');
     messages = body.messages
       .slice(-20) // cap context length

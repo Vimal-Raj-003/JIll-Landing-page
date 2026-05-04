@@ -18,15 +18,11 @@ const Schema = z.object({
 
 type Payload = z.infer<typeof Schema>;
 
-export default async function handler(req: Request): Promise<Response> {
-  if (req.method !== 'POST') {
-    return new Response('Method not allowed', { status: 405 });
-  }
-
+export async function POST(request: Request): Promise<Response> {
   // 1. Parse + validate
   let payload: Payload;
   try {
-    payload = Schema.parse(await req.json());
+    payload = Schema.parse(await request.json());
   } catch {
     return Response.json({ ok: false, error: 'Invalid form data' }, { status: 400 });
   }
@@ -37,13 +33,13 @@ export default async function handler(req: Request): Promise<Response> {
   }
 
   // 3. Vercel BotID gate (header set by Vercel platform when BotID is enabled)
-  const botIdHeader = req.headers.get('x-vercel-botid-verification');
+  const botIdHeader = request.headers.get('x-vercel-botid-verification');
   if (botIdHeader === 'block') {
     return Response.json({ ok: false, error: 'Bot detected' }, { status: 403 });
   }
 
   // 4. Rate limit per IP (3 / 10 min)
-  const ip = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
+  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
   const cache = getCache();
   const rlKey = `ratelimit:contact:${ip}`;
   const current = ((await cache.get(rlKey)) as number | null) ?? 0;
