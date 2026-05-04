@@ -2,7 +2,7 @@ import { z } from 'zod';
 import nodemailer from 'nodemailer';
 import { getCache } from '@vercel/functions';
 
-export const config = { runtime: 'nodejs', maxDuration: 10 };
+export const config = { runtime: 'nodejs', maxDuration: 60 };
 
 const Schema = z.object({
   company: z.string().min(1).max(120),
@@ -61,38 +61,52 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
-  // Diagnostic — values redacted, only structural info logged
-  console.log('SMTP attempt:', {
-    user: ZOHO_USER,
-    passLen: ZOHO_PASS.length,
-    passFirst2: ZOHO_PASS.slice(0, 2),
-    passLast2: ZOHO_PASS.slice(-2),
-    passHasSpace: /\s/.test(ZOHO_PASS),
-    from: ZOHO_FROM,
-    to: ZOHO_TO,
-  });
+  // Try multiple Zoho host/port combos — vimsenterprise.com may be on the
+  // .com or .in data center, with TLS on either 465 (SSL) or 587 (STARTTLS).
+  const SMTP_CONFIGS = [
+    { host: 'smtppro.zoho.in',  port: 465, secure: true  },
+    { host: 'smtppro.zoho.com', port: 465, secure: true  },
+    { host: 'smtp.zoho.in',     port: 465, secure: true  },
+    { host: 'smtp.zoho.com',    port: 465, secure: true  },
+    { host: 'smtppro.zoho.in',  port: 587, secure: false },
+    { host: 'smtppro.zoho.com', port: 587, secure: false },
+  ];
 
-  const transporter = nodemailer.createTransport({
-    host: 'smtppro.zoho.in',
-    port: 465,
-    secure: true,
-    auth: { user: ZOHO_USER.trim(), pass: ZOHO_PASS.trim() },
-  });
+  let lastError: unknown = null;
+  let sent = false;
 
-  try {
-    await Promise.race([
-      transporter.sendMail({
-        from: ZOHO_FROM,
-        to: ZOHO_TO,
-        replyTo: payload.email,
-        subject: `[JillJill Lead] ${payload.company} — ${payload.package}`,
-        text: formatPlain(payload, ip),
-        html: formatHtml(payload, ip),
-      }),
-      new Promise((_, reject) => setTimeout(() => reject(new Error('SMTP timeout')), 8_000)),
-    ]);
-  } catch (error) {
-    console.error('SMTP failure:', error);
+  for (const cfg of SMTP_CONFIGS) {
+    const transporter = nodemailer.createTransport({
+      ...cfg,
+      auth: { user: ZOHO_USER.trim(), pass: ZOHO_PASS.trim() },
+      connectionTimeout: 5_000,
+      greetingTimeout: 5_000,
+      socketTimeout: 5_000,
+    });
+    try {
+      await Promise.race([
+        transporter.sendMail({
+          from: ZOHO_FROM,
+          to: ZOHO_TO,
+          replyTo: payload.email,
+          subject: `[JillJill Lead] ${payload.company} — ${payload.package}`,
+          text: formatPlain(payload, ip),
+          html: formatHtml(payload, ip),
+        }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('overall timeout')), 6_000)),
+      ]);
+      console.log('SMTP succeeded via', cfg.host, cfg.port);
+      sent = true;
+      break;
+    } catch (error) {
+      const err = error as { code?: string; response?: string };
+      console.log('SMTP failed via', cfg.host, cfg.port, '->', err?.code, err?.response);
+      lastError = error;
+    }
+  }
+
+  if (!sent) {
+    console.error('All SMTP configs failed. Last error:', lastError);
     return Response.json(
       {
         ok: false,
