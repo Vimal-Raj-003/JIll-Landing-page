@@ -5,6 +5,7 @@
   "private": true,
   "description": "Vercel Functions powering the JillJill landing page (contact form + chatbot).",
   "dependencies": {
+    "@openrouter/ai-sdk-provider": "^2.9.0",
     "@vercel/functions": "^3.0.0",
     "ai": "^6.0.0",
     "nodemailer": "^7.0.0",

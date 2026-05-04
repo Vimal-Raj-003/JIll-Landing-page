@@ -1,7 +1,18 @@
 import { streamText } from 'ai';
+import { createOpenRouter } from '@openrouter/ai-sdk-provider';
 import { getCache } from '@vercel/functions';
 
 export const config = { runtime: 'nodejs', maxDuration: 30 };
+
+const openrouter = createOpenRouter({
+  apiKey: process.env.OPENROUTER_API_KEY,
+  headers: {
+    'HTTP-Referer': 'https://jilljill-landing-page.vercel.app',
+    'X-Title': 'JillJill Landing Page Chatbot',
+  },
+});
+
+const MODEL = 'anthropic/claude-3-haiku';
 
 const SYSTEM_PROMPT = `You are JillJill's assistant on the JillJill landing page.
 
@@ -76,9 +87,9 @@ export async function POST(request: Request): Promise<Response> {
     return Response.json({ error: 'Invalid request' }, { status: 400 });
   }
 
-  // 4. Stream from Claude Haiku 4.5 via Vercel AI Gateway
+  // 4. Stream from Claude 3 Haiku via OpenRouter
   const result = streamText({
-    model: 'anthropic/claude-haiku-4-5',
+    model: openrouter(MODEL),
     system: SYSTEM_PROMPT,
     messages,
     maxOutputTokens: 600,
