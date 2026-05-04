@@ -1,1 +1,14 @@
+# Vercel local link
 .vercel
+
+# Secrets — never commit
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Node modules at any depth
+**/node_modules/
+
+# Local verification scratch
+.tmp-verify/
+.playwright-mcp/
