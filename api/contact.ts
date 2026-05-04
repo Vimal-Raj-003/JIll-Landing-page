@@ -61,11 +61,22 @@ export async function POST(request: Request): Promise<Response> {
     );
   }
 
+  // Diagnostic — values redacted, only structural info logged
+  console.log('SMTP attempt:', {
+    user: ZOHO_USER,
+    passLen: ZOHO_PASS.length,
+    passFirst2: ZOHO_PASS.slice(0, 2),
+    passLast2: ZOHO_PASS.slice(-2),
+    passHasSpace: /\s/.test(ZOHO_PASS),
+    from: ZOHO_FROM,
+    to: ZOHO_TO,
+  });
+
   const transporter = nodemailer.createTransport({
     host: 'smtppro.zoho.in',
     port: 465,
     secure: true,
-    auth: { user: ZOHO_USER, pass: ZOHO_PASS },
+    auth: { user: ZOHO_USER.trim(), pass: ZOHO_PASS.trim() },
   });
 
   try {
