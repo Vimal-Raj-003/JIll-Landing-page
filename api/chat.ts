@@ -90,8 +90,10 @@ export async function POST(request: Request): Promise<Response> {
         console.error('budget cache write failed:', e);
       }
     },
+    onError: ({ error }) => {
+      console.error('streamText error:', error);
+    },
   });
 
-  // Return raw text stream so the frontend can read it as plain text
   return result.toTextStreamResponse();
 }

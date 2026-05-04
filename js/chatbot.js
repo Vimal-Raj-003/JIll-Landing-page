@@ -89,6 +89,11 @@ class Chatbot {
         assistantBubble.textContent = full;
         this.messagesEl.scrollTop = this.messagesEl.scrollHeight;
       }
+      if (full.trim().length === 0) {
+        assistantBubble.textContent = "The chatbot is temporarily unavailable. Please use the contact form below — we'll get back to you within a business day.";
+        assistantBubble.classList.add('error');
+        return;
+      }
       this.transcript.push({ role: 'assistant', content: full });
     } catch (error) {
       assistantBubble.textContent = 'Network error. Please try again.';
