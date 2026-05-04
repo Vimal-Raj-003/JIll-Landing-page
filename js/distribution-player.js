@@ -79,7 +79,7 @@ class DistributionPlayer {
       img.onload = () => { this.frames[index] = img; resolve(); };
       img.onerror = () => resolve();
       const padded = String(index).padStart(3, '0');
-      const delay = index % 3 === 0 ? '0.041s' : '0.042s';
+      const delay = (index === this.totalFrames - 1) ? '0.041s' : (index % 3 === 0 ? '0.041s' : '0.042s');
       img.src = `${this.folder}/frame_${padded}_delay-${delay}.webp`;
     });
   }

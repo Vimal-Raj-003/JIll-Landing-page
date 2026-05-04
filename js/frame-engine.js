@@ -1,3 +1,9 @@
+// Last frame in each 192-frame sequence is 0.041s, not the rule's 0.042s.
+function frameDelay(i, total) {
+  if (i === total - 1) return '0.041s';
+  return i % 3 === 0 ? '0.041s' : '0.042s';
+}
+
 class FrameEngine {
   constructor(canvasId, folder, totalFrames) {
     this.canvas = document.getElementById(canvasId);
@@ -38,8 +44,7 @@ class FrameEngine {
     const promises = [];
     for (let i = 0; i < this.totalFrames; i++) {
       const padded = String(i).padStart(3, '0');
-      // Match the actual file naming pattern
-      const delay = i % 3 === 0 ? '0.041s' : '0.042s';
+      const delay = frameDelay(i, this.totalFrames);
       const src = `${this.folder}/frame_${padded}_delay-${delay}.webp`;
       promises.push(this._loadImage(src, i));
 
@@ -54,7 +59,7 @@ class FrameEngine {
     const promises = [];
     for (let i = 0; i < Math.min(count, this.totalFrames); i++) {
       const padded = String(i).padStart(3, '0');
-      const delay = i % 3 === 0 ? '0.041s' : '0.042s';
+      const delay = frameDelay(i, this.totalFrames);
       const src = `${this.folder}/frame_${padded}_delay-${delay}.webp`;
       promises.push(this._loadImage(src, i));
     }
@@ -74,7 +79,7 @@ class FrameEngine {
       for (let j = i; j < Math.min(i + 12, this.totalFrames); j++) {
         if (this.frames[j]) continue;
         const padded = String(j).padStart(3, '0');
-        const delay = j % 3 === 0 ? '0.041s' : '0.042s';
+        const delay = frameDelay(j, this.totalFrames);
         const src = `${this.folder}/frame_${padded}_delay-${delay}.webp`;
         promises.push(this._loadImage(src, j));
       }
