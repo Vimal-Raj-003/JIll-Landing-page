@@ -767,5 +767,24 @@
   <script src="js/distribution-player.js"></script>
   <script src="js/modal.js"></script>
   <script src="js/main.js"></script>
+
+  <!-- ==================== Chatbot widget ==================== -->
+  <button id="chatbotToggle" class="chatbot-toggle" aria-label="Open chat with JillJill" aria-expanded="false">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+  </button>
+
+  <aside id="chatbotPanel" class="chatbot-panel" role="dialog" aria-modal="false" aria-labelledby="chatbotTitle" hidden>
+    <header class="chatbot-header">
+      <h3 id="chatbotTitle">Ask JillJill</h3>
+      <button class="chatbot-close" aria-label="Close chat" type="button">&times;</button>
+    </header>
+    <div id="chatbotMessages" class="chatbot-messages" aria-live="polite"></div>
+    <form id="chatbotComposer" class="chatbot-composer">
+      <input type="text" name="prompt" placeholder="Ask about pricing, packages, distribution…" required maxlength="500" autocomplete="off">
+      <button type="submit" aria-label="Send message">↑</button>
+    </form>
+  </aside>
 </body>
 </html>
